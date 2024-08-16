@@ -45,12 +45,25 @@ ament_target_dependencies(readodom_component
 rclcpp_components_register_nodes(readodom_component "my_components::OdomSubscriber")
 set(node_plugins "${node_plugins}my_components::OdomSubscriber;$<TARGET_FILE:readodom_component>\n")
 
+add_executable(manual_composition 
+				src/manual_composition.cpp)
+target_link_libraries(manual_composition
+  				moverobot_component
+  				readodom_component)
+ament_target_dependencies(manual_composition
+  				"rclcpp")
+
+
 install(TARGETS
   moverobot_component
   readodom_component
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
   RUNTIME DESTINATION bin)
+
+install(TARGETS
+	manual_composition
+	DESTINATION lib/${PROJECT_NAME})
 
 # Install launch files.
 install(DIRECTORY

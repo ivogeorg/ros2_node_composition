@@ -188,3 +188,28 @@ user:~/ros2_ws$ ros2 launch my_components movebot_component.launch.py
 
 See the [launch file](launch/combine_components.launch.py)
 
+#### Manual composition
+
+Components are libraries!!! 
+
+1. Source code:
+   ```
+   rclcpp::executors::SingleThreadedExecutor exec;
+   rclcpp::NodeOptions options;
+
+   auto moverobot = std::make_shared<my_components::MoveRobot>(options);
+   exec.add_node(moverobot);
+   auto readodom = std::make_shared<my_components::OdomSubscriber>(options);
+   exec.add_node(readodom);
+
+   exec.spin();
+   ```
+2. CMakeLists.txt:
+   ```
+   add_executable(manual_composition src/manual_composition.cpp)
+   target_link_libraries(manual_composition moverobot_component readodom_component)
+   ament_target_dependencies(manual_composition "rclcpp")
+   ```
+
+
+

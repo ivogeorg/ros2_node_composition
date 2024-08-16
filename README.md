@@ -183,3 +183,8 @@ user:~/ros2_ws$ ros2 launch my_components movebot_component.launch.py
 [component_container-1] [INFO] [1723844314.099725269] [my_container]: Instantiate class: rclcpp_components::NodeFactoryTemplate<my_components::MoveRobot>
 [INFO] [launch_ros.actions.load_composable_nodes]: Loaded node '/moverobot' in container '/my_container'
 ```
+
+#### Node composition
+
+See the [launch file](launch/combine_components.launch.py)
+

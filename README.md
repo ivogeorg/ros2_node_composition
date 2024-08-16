@@ -143,6 +143,8 @@ user:~/ros2_ws$ ros2 run rclcpp_components component_container
 [INFO] [1723842246.725208312] [ComponentManager]: Instantiate class: rclcpp_components::NodeFactoryTemplate<my_components::MoveRobot>
 ```
 
+`Ctrl-C` to stop.  
+
 #### Unload component
 
 Structure `ros2 component unload /ComponentManager <component_id>`. <component_id> is _unique_.
@@ -167,3 +169,17 @@ response:
 std_srvs.srv.Empty_Response()
 ```
 
+#### Loading components with a launch file
+
+See the [launch file](launch/movebot_component.launch.py)
+
+```
+user:~/ros2_ws$ ros2 launch my_components movebot_component.launch.py
+[INFO] [launch]: All log files can be found below /home/user/.ros/log/2024-08-16-21-38-33-622663-1_xterm-8010
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [component_container-1]: process started with pid [8023]
+[component_container-1] [INFO] [1723844314.098622060] [my_container]: Load Library: /home/user/ros2_ws/install/my_components/lib/libmoverobot_component.so
+[component_container-1] [INFO] [1723844314.099674057] [my_container]: Found class: rclcpp_components::NodeFactoryTemplate<my_components::MoveRobot>
+[component_container-1] [INFO] [1723844314.099725269] [my_container]: Instantiate class: rclcpp_components::NodeFactoryTemplate<my_components::MoveRobot>
+[INFO] [launch_ros.actions.load_composable_nodes]: Loaded node '/moverobot' in container '/my_container'
+```

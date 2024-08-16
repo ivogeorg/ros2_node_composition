@@ -211,5 +211,46 @@ Components are libraries!!!
    ament_target_dependencies(manual_composition "rclcpp")
    ```
 
+#### Service composition
 
+Server and client are components.
+
+1. Start container (`Ctrl-C` to stop):
+```
+ros2 run rclcpp_components component_container
+[INFO] [1723848148.572690571] [ComponentManager]: Load Library: /home/user/ros2_ws/install/my_components/lib/libserver_component.so
+[INFO] [1723848148.573569691] [ComponentManager]: Found class: rclcpp_components::NodeFactoryTemplate<my_components::Server>
+[INFO] [1723848148.573616998] [ComponentManager]: Instantiate class: rclcpp_components::NodeFactoryTemplate<my_components::Server>
+[INFO] [1723848177.266208730] [ComponentManager]: Load Library: /home/user/ros2_ws/install/my_components/lib/libclient_component.so
+[INFO] [1723848177.266929616] [ComponentManager]: Found class: rclcpp_components::NodeFactoryTemplate<my_components::Client>
+[INFO] [1723848177.266968383] [ComponentManager]: Instantiate class: rclcpp_components::NodeFactoryTemplate<my_components::Client>
+[INFO] [1723848179.276733139] [move_circle_client]: Result: success
+[INFO] [1723848181.275520217] [move_circle_client]: Result: success
+[INFO] [1723848183.275524208] [move_circle_client]: Result: success
+```
+2. Load components:
+```
+user:~/ros2_ws$ ros2 component load /ComponentManager my_components my_components::Server
+Loaded component 1 into '/ComponentManager' container node as '/move_circle_service'
+user:~/ros2_ws$ ros2 component list
+/ComponentManager
+  1  /move_circle_service
+user:~/ros2_ws$ ros2 component load /ComponentManager my_components my_components::Client
+Loaded component 2 into '/ComponentManager' container node as '/move_circle_client'
+user:~/ros2_ws$ ros2 component list
+/ComponentManager
+  1  /move_circle_service
+  2  /move_circle_client
+user:~/ros2_ws$
+```
+3. Unload and stop robot:
+```
+user:~/ros2_ws$ ros2 component unload /ComponentManager 2
+Unloaded component 2 from '/ComponentManager' container node
+user:~/ros2_ws$ ros2 component unload /ComponentManager 1
+Unloaded component 1 from '/ComponentManager' container node
+user:~/ros2_ws$ ros2 topic pub --once /cmd_vel geometry_msgs/msg/Twist
+publisher: beginning loop
+publishing #1: geometry_msgs.msg.Twist(linear=geometry_msgs.msg.Vector3(x=0.0, y=0.0, z=0.0), angular=geometry_msgs.msg.Vector3(x=0.0, y=0.0, z=0.0))
+```
 

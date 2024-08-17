@@ -191,7 +191,9 @@ user:~/ros2_ws$ ros2 launch my_components movebot_component.launch.py
 
 See the [launch file](launch/combine_components.launch.py)
 
-#### Manual composition
+#### Compile-time composition
+
+Aka **manual composition**.  
 
 Components are libraries!!! 
 

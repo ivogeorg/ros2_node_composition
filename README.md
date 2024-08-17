@@ -108,9 +108,12 @@ joy
   joy::Joy
 ```  
 
-#### `ros2 run rclcpp_components component_container`
+#### Runtime composition
 
-Starts the _component container_.  
+Start the component container:
+```
+ros2 run rclcpp_components component_container
+```
 
 Check if it's running:
 ```
